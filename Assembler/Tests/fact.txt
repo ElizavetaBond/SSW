@@ -1,0 +1,34 @@
+﻿str1: string "result=" 
+str2: string "Enter_number"
+number: int  0, 1
+temp: memint 1
+temp2: memint 1
+temp3: memint 1
+temp4: memint 1
+ org 1000	    
+ SOUT str2
+ IIN temp
+ MOVMR R0, number
+ SUB R0, number+INTSIZE
+ JL proc
+ SOUT str1
+ IOUT number+INTSIZE
+ JMP finish
+proc: MOVMR R0, number
+ MOVMR R1, number+INTSIZE
+ MOVRM R0, temp2
+ MOVMR R2, temp2
+ SUB R2, temp
+ JE proc2
+ CALL proc3
+ JMP proc+2*3
+proc3: ADD R0, number+INTSIZE
+ MOVRM R0, temp3
+ MUL R2, temp3
+ RET
+proc2: MOVRM R1, temp4
+ SOUT str2
+ IOUT temp4
+finish: HALT
+ begin 1000
+ end
